@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You Money</title>
+    <title>You Money - Search & Watch</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,8 +12,6 @@
             margin: 0;
             padding: 0;
             padding-bottom: 60px;
-            user-select: none; /* टेक्स्ट कॉपी रोकना */
-            -webkit-user-select: none;
         }
         .header-container {
             background-color: #ff0000;
@@ -44,11 +42,49 @@
         .container {
             padding: 10px;
         }
+        /* सर्च बॉक्स स्टाइल */
+        .search-box-container {
+            background-color: #1e1e1e;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        .search-title {
+            font-size: 13px;
+            color: #fff;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+        .search-row {
+            display: flex;
+            gap: 8px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #2a2a2a;
+            color: #fff;
+            font-size: 12px;
+        }
+        .search-btn {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+        }
         .video-card {
             background-color: #1e1e1e;
             margin-bottom: 15px;
             padding: 10px;
             border-radius: 6px;
+            text-align: center;
         }
         .video-title {
             font-size: 12px;
@@ -59,98 +95,31 @@
         .video-wrapper {
             position: relative;
             width: 100%;
-        }
-        .video-container {
-            position: relative;
             padding-bottom: 56.25%;
             height: 0;
-            overflow: hidden;
             background-color: #000;
             border-radius: 4px;
+            overflow: hidden;
         }
-        .video-container iframe {
+        .video-wrapper div {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
         }
-        /* सुरक्षा कवच: दबाकर रखने पर ही वीडियो वेरिफाई होगा */
-        .touch-zone {
-            background-color: #2196f3;
-            color: white;
-            padding: 8px;
+        .status-text {
             font-size: 11px;
-            font-weight: bold;
-            text-align: center;
-            border-radius: 4px;
+            color: #ff9800;
             margin-top: 8px;
-            cursor: pointer;
-            touch-action: none;
-        }
-        .btn-small {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            font-size: 11px;
-            border-radius: 4px;
-            cursor: pointer;
             font-weight: bold;
+        }
+        .success-text {
+            font-size: 12px;
+            color: #4caf50;
             margin-top: 8px;
-            width: 100%;
-            display: none;
-        }
-        .creator-section {
-            display: none;
-            background-color: #1e1e1e;
-            margin: 10px;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .form-group {
-            margin-bottom: 12px;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            margin-bottom: 5px;
-            color: #aaa;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            color: white;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 12px;
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #1a1a1a;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            border-top: 1px solid #333;
-            z-index: 100;
-        }
-        .nav-item {
-            color: #aaa;
-            background: none;
-            border: none;
-            font-size: 12px;
             font-weight: bold;
-            cursor: pointer;
-        }
-        .nav-item.active {
-            color: #ff0000;
+            display: none;
         }
     </style>
 </head>
@@ -161,129 +130,100 @@
         <div class="wallet-small">₹ <span id="money-display">0.00</span></div>
     </div>
 
-    <div id="home-page" class="container">
+    <div class="container">
         
+        <!-- नया सर्च बॉक्स फीचर -->
+        <div class="search-box-container">
+            <p class="search-title">🔍 यूट्यूब वीडियो लिंक सर्च करें</p>
+            <div class="search-row">
+                <input type="text" id="youtube-url" class="search-input" placeholder="यहाँ वीडियो लिंक पेस्ट करें...">
+                <button class="search-btn" onclick="loadSearchedVideo()">सर्च करें</button>
+            </div>
+        </div>
+
+        <!-- वीडियो प्लेयर कार्ड -->
         <div class="video-card">
-            <p class="video-title">वीडियो 1: मजेदार वीडियो (₹0.01 कमाएं)</p>
+            <p class="video-title" id="display-title">वीडियो: टास्क पूरा करें (₹0.01 कमाएं)</p>
             <div class="video-wrapper">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
-                </div>
+                <div id="main-player"></div>
             </div>
-            <div id="zone1" class="touch-zone" 
-                 onpointerdown="pressStart(15, 'zone1', 'btn1')" 
-                 onpointerup="pressEnd()" 
-                 onpointerleave="pressEnd()">
-                वीडियो चलाकर यहाँ उंगली दबाकर रखें (15 सेकंड)
-            </div>
-            <button id="btn1" class="btn-small" onclick="claimMoney('btn1')">पैसे वॉलेट में जोड़ें</button>
+            <div id="main-status" class="status-text">स्थिति: वीडियो लिंक सर्च करके प्ले करें...</div>
+            <div id="main-success" class="success-text">✅ ₹0.01 आपके वॉलेट में जोड़ दिए गए हैं!</div>
         </div>
 
-        <div class="video-card">
-            <p class="video-title">वीडियो 2: गजब के लाइफ हैक्स (₹0.01 कमाएं)</p>
-            <div class="video-wrapper">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div id="zone2" class="touch-zone" 
-                 onpointerdown="pressStart(15, 'zone2', 'btn2')" 
-                 onpointerup="pressEnd()" 
-                 onpointerleave="pressEnd()">
-                वीडियो चलाकर यहाँ उंगली दबाकर रखें (15 सेकंड)
-            </div>
-            <button id="btn2" class="btn-small" onclick="claimMoney('btn2')">पैसे वॉलेट में जोड़ें</button>
-        </div>
-
-    </div>
-
-    <div id="upload-page" class="creator-section">
-        <h3 style="font-size: 14px; margin-top: 0; color: #ff0000;">क्रिएटर पैनल - वीडियो डालें</h3>
-        <div class="form-group">
-            <label>वीडियो का नाम (Title)</label>
-            <input type="text" placeholder="मजेदार वीडियो लिखें">
-        </div>
-        <div class="form-group">
-            <label>यूट्यूब या ड्राइव लिंक (Link)</label>
-            <input type="text" placeholder="यहाँ लिंक पेस्ट करें">
-        </div>
-        <button class="btn-small" style="display:block; background-color: #ff0000;" onclick="alert('वीडियो सबमिट हो गया!')">वीडियो सबमिट करें</button>
-    </div>
-
-    <div class="bottom-nav">
-        <button id="nav-home" class="nav-item active" onclick="switchPage('home')">वीडियो देखें</button>
-        <button id="nav-upload" class="nav-item" onclick="switchPage('upload')">वीडियो डालें</button>
     </div>
 
     <script>
         let currentBalance = 0.00;
-        let holdInterval = null;
-        let timeLeft = 0;
-        let activeZoneId = null;
-        let activeBtnId = null;
+        let currentVideoId = 'tgbNymZ7vqY'; // शुरुआती डिफ़ॉल्ट वीडियो
+        let isRewarded = false;
+        let player;
 
-        function switchPage(page) {
-            if(page === 'home') {
-                document.getElementById('home-page').style.display = 'block';
-                document.getElementById('upload-page').style.display = 'none';
-                document.getElementById('nav-home').classList.add('active');
-                document.getElementById('nav-upload').classList.remove('active');
-            } else if(page === 'upload') {
-                document.getElementById('home-page').style.display = 'none';
-                document.getElementById('upload-page').style.display = 'block';
-                document.getElementById('nav-home').classList.remove('active');
-                document.getElementById('nav-upload').classList.add('active');
-            }
-        }
+        // यूट्यूब API लोड करना
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        // उंगली दबाने पर चेकिंग शुरू होगी
-        function pressStart(seconds, zoneId, btnId) {
-            activeZoneId = zoneId;
-            activeBtnId = btnId;
-            let zoneElement = document.getElementById(zoneId);
-            
-            if(timeLeft === 0) {
-                timeLeft = seconds;
-            }
-
-            zoneElement.style.backgroundColor = "#ff9800";
-
-            holdInterval = setInterval(function() {
-                if(timeLeft <= 0) {
-                    clearInterval(holdInterval);
-                    zoneElement.style.display = 'none';
-                    document.getElementById(btnId).style.display = 'block';
-                    timeLeft = 0;
-                } else {
-                    zoneElement.innerText = "चेकिंग चालू: उंगली दबाए रखें (" + timeLeft + " सेकंड बाकी)";
-                    timeLeft -= 1;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('main-player', {
+                videoId: currentVideoId,
+                events: {
+                    'onStateChange': onPlayerStateChange
                 }
-            }, 1000);
+            });
         }
 
-        // उंगली हटाते ही चेकिंग तुरंत रुक जाएगी (Freeze)
-        function pressEnd() {
-            if (holdInterval) {
-                clearInterval(holdInterval);
-                holdInterval = null;
-                if(timeLeft > 0 && activeZoneId) {
-                    let zoneElement = document.getElementById(activeZoneId);
-                    zoneElement.style.backgroundColor = "#2196f3";
-                    zoneElement.innerText = "रुका हुआ है! दोबारा उंगली दबाकर रखें (" + (timeLeft + 1) + " सेकंड बाकी)";
-                }
+        // लिंक में से Video ID निकालने का फंक्शन
+        function extractVideoId(url) {
+            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            let match = url.match(regExp);
+            return (match && match[2].length == 11) ? match[2] : null;
+        }
+
+        // नया वीडियो लोड करने का फंक्शन
+        function loadSearchedVideo() {
+            let urlInput = document.getElementById('youtube-url').value;
+            let vId = extractVideoId(urlInput);
+
+            if (vId) {
+                currentVideoId = vId;
+                isRewarded = false; // नए वीडियो के लिए रिवॉर्ड रीसेट करें
+                document.getElementById('main-success').style.display = 'none';
+                document.getElementById('main-status').style.display = 'block';
+                document.getElementById('main-status').innerText = "स्थिति: नया वीडियो लोड हो गया। पूरा देखें...";
+                document.getElementById('main-status').style.color = "#ff9800";
+                
+                // प्लेयर में नया वीडियो डालें
+                player.loadVideoById(currentVideoId);
+            } else {
+                alert("कृपया सही यूट्यूब वीडियो लिंक पेस्ट करें!");
             }
         }
 
-        function claimMoney(buttonId) {
-            currentBalance = currentBalance + 0.01;
-            document.getElementById('money-display').innerText = currentBalance.toFixed(2);
+        // ट्रैकर चेकिंग सिस्टम
+        function onPlayerStateChange(event) {
+            let statusElement = document.getElementById('main-status');
             
-            let clickedButton = document.getElementById(buttonId);
-            clickedButton.disabled = true;
-            clickedButton.innerText = "पैसे जोड़ दिए गए हैं";
-            clickedButton.style.backgroundColor = "#2e7d32";
+            if (event.data == YT.PlayerState.PLAYING) {
+                statusElement.innerText = "status: वीडियो चल रहा है... (पूरा देखना ज़रूरी है)";
+                statusElement.style.color = "#4caf50";
+            } 
+            else if (event.data == YT.PlayerState.PAUSED) {
+                statusElement.innerText = "status: वीडियो रुका हुआ है! देखने पर ही पैसा मिलेगा।";
+                statusElement.style.color = "#ff9800";
+            } 
+            else if (event.data == YT.PlayerState.ENDED) {
+                statusElement.style.display = 'none';
+                
+                if (!isRewarded) {
+                    isRewarded = true;
+                    currentBalance += 0.01;
+                    document.getElementById('money-display').innerText = currentBalance.toFixed(2);
+                    document.getElementById('main-success').style.display = 'block';
+                }
+            }
         }
     </script>
-
 </body>
 </html>
