@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Money</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 60px;
+            user-select: none; /* टेक्स्ट कॉपी रोकना */
+            -webkit-user-select: none;
+        }
+        .header-container {
+            background-color: #ff0000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .app-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+        }
+        .wallet-small {
+            background-color: #1e1e1e;
+            color: #4caf50;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            border: 1px solid #4caf50;
+            margin-right: 10px;
+        }
+        .container {
+            padding: 10px;
+        }
+        .video-card {
+            background-color: #1e1e1e;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .video-title {
+            font-size: 12px;
+            margin: 0 0 8px 0;
+            color: #ffffff;
+            text-align: left;
+        }
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background-color: #000;
+            border-radius: 4px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        /* सुरक्षा कवच: दबाकर रखने पर ही वीडियो वेरिफाई होगा */
+        .touch-zone {
+            background-color: #2196f3;
+            color: white;
+            padding: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 4px;
+            margin-top: 8px;
+            cursor: pointer;
+            touch-action: none;
+        }
+        .btn-small {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 11px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 8px;
+            width: 100%;
+            display: none;
+        }
+        .creator-section {
+            display: none;
+            background-color: #1e1e1e;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #aaa;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 12px;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #333;
+            z-index: 100;
+        }
+        .nav-item {
+            color: #aaa;
+            background: none;
+            border: none;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .nav-item.active {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="app-title">YOU MONEY</div>
+        <div class="wallet-small">₹ <span id="money-display">0.00</span></div>
+    </div>
+
+    <div id="home-page" class="container">
+        
+        <div class="video-card">
+            <p class="video-title">वीडियो 1: मजेदार वीडियो (₹0.01 कमाएं)</p>
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div id="zone1" class="touch-zone" 
+                 onpointerdown="pressStart(15, 'zone1', 'btn1')" 
+                 onpointerup="pressEnd()" 
+                 onpointerleave="pressEnd()">
+                वीडियो चलाकर यहाँ उंगली दबाकर रखें (15 सेकंड)
+            </div>
+            <button id="btn1" class="btn-small" onclick="claimMoney('btn1')">पैसे वॉलेट में जोड़ें</button>
+        </div>
+
+        <div class="video-card">
+            <p class="video-title">वीडियो 2: गजब के लाइफ हैक्स (₹0.01 कमाएं)</p>
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div id="zone2" class="touch-zone" 
+                 onpointerdown="pressStart(15, 'zone2', 'btn2')" 
+                 onpointerup="pressEnd()" 
+                 onpointerleave="pressEnd()">
+                वीडियो चलाकर यहाँ उंगली दबाकर रखें (15 सेकंड)
+            </div>
+            <button id="btn2" class="btn-small" onclick="claimMoney('btn2')">पैसे वॉलेट में जोड़ें</button>
+        </div>
+
+    </div>
+
+    <div id="upload-page" class="creator-section">
+        <h3 style="font-size: 14px; margin-top: 0; color: #ff0000;">क्रिएटर पैनल - वीडियो डालें</h3>
+        <div class="form-group">
+            <label>वीडियो का नाम (Title)</label>
+            <input type="text" placeholder="मजेदार वीडियो लिखें">
+        </div>
+        <div class="form-group">
+            <label>यूट्यूब या ड्राइव लिंक (Link)</label>
+            <input type="text" placeholder="यहाँ लिंक पेस्ट करें">
+        </div>
+        <button class="btn-small" style="display:block; background-color: #ff0000;" onclick="alert('वीडियो सबमिट हो गया!')">वीडियो सबमिट करें</button>
+    </div>
+
+    <div class="bottom-nav">
+        <button id="nav-home" class="nav-item active" onclick="switchPage('home')">वीडियो देखें</button>
+        <button id="nav-upload" class="nav-item" onclick="switchPage('upload')">वीडियो डालें</button>
+    </div>
+
+    <script>
+        let currentBalance = 0.00;
+        let holdInterval = null;
+        let timeLeft = 0;
+        let activeZoneId = null;
+        let activeBtnId = null;
+
+        function switchPage(page) {
+            if(page === 'home') {
+                document.getElementById('home-page').style.display = 'block';
+                document.getElementById('upload-page').style.display = 'none';
+                document.getElementById('nav-home').classList.add('active');
+                document.getElementById('nav-upload').classList.remove('active');
+            } else if(page === 'upload') {
+                document.getElementById('home-page').style.display = 'none';
+                document.getElementById('upload-page').style.display = 'block';
+                document.getElementById('nav-home').classList.remove('active');
+                document.getElementById('nav-upload').classList.add('active');
+            }
+        }
+
+        // उंगली दबाने पर चेकिंग शुरू होगी
+        function pressStart(seconds, zoneId, btnId) {
+            activeZoneId = zoneId;
+            activeBtnId = btnId;
+            let zoneElement = document.getElementById(zoneId);
+            
+            if(timeLeft === 0) {
+                timeLeft = seconds;
+            }
+
+            zoneElement.style.backgroundColor = "#ff9800";
+
+            holdInterval = setInterval(function() {
+                if(timeLeft <= 0) {
+                    clearInterval(holdInterval);
+                    zoneElement.style.display = 'none';
+                    document.getElementById(btnId).style.display = 'block';
+                    timeLeft = 0;
+                } else {
+                    zoneElement.innerText = "चेकिंग चालू: उंगली दबाए रखें (" + timeLeft + " सेकंड बाकी)";
+                    timeLeft -= 1;
+                }
+            }, 1000);
+        }
+
+        // उंगली हटाते ही चेकिंग तुरंत रुक जाएगी (Freeze)
+        function pressEnd() {
+            if (holdInterval) {
+                clearInterval(holdInterval);
+                holdInterval = null;
+                if(timeLeft > 0 && activeZoneId) {
+                    let zoneElement = document.getElementById(activeZoneId);
+                    zoneElement.style.backgroundColor = "#2196f3";
+                    zoneElement.innerText = "रुका हुआ है! दोबारा उंगली दबाकर रखें (" + (timeLeft + 1) + " सेकंड बाकी)";
+                }
+            }
+        }
+
+        function claimMoney(buttonId) {
+            currentBalance = currentBalance + 0.01;
+            document.getElementById('money-display').innerText = currentBalance.toFixed(2);
+            
+            let clickedButton = document.getElementById(buttonId);
+            clickedButton.disabled = true;
+            clickedButton.innerText = "पैसे जोड़ दिए गए हैं";
+            clickedButton.style.backgroundColor = "#2e7d32";
+        }
+    </script>
+
+</body>
+</html>
