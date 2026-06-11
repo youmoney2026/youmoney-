@@ -3,227 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You Money - Search & Watch</title>
+    <title>You Money</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
-            padding-bottom: 60px;
-        }
-        .header-container {
-            background-color: #ff0000;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .app-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            margin-left: 10px;
-        }
-        .wallet-small {
-            background-color: #1e1e1e;
-            color: #4caf50;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: bold;
-            border: 1px solid #4caf50;
-            margin-right: 10px;
-        }
-        .container {
-            padding: 10px;
-        }
-        /* सर्च बॉक्स स्टाइल */
-        .search-box-container {
-            background-color: #1e1e1e;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            border: 1px solid #333;
-        }
-        .search-title {
-            font-size: 13px;
-            color: #fff;
-            margin: 0 0 8px 0;
-            font-weight: bold;
-        }
-        .search-row {
-            display: flex;
-            gap: 8px;
-        }
-        .search-input {
-            flex: 1;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #444;
-            background-color: #2a2a2a;
-            color: #fff;
-            font-size: 12px;
-        }
-        .search-btn {
-            background-color: #ff0000;
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
-        }
-        .video-card {
-            background-color: #1e1e1e;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .video-title {
-            font-size: 12px;
-            margin: 0 0 8px 0;
-            color: #ffffff;
-            text-align: left;
-        }
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            background-color: #000;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .video-wrapper div {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .status-text {
-            font-size: 11px;
-            color: #ff9800;
-            margin-top: 8px;
-            font-weight: bold;
-        }
-        .success-text {
-            font-size: 12px;
-            color: #4caf50;
-            margin-top: 8px;
-            font-weight: bold;
-            display: none;
-        }
+        body { font-family: Arial, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 0; padding-bottom: 30px; }
+        .header { background-color: #ff0000; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .title { font-size: 18px; font-weight: bold; color: white; }
+        .wallet { background-color: #1e1e1e; color: #4caf50; padding: 5px 10px; border-radius: 4px; font-weight: bold; border: 1px solid #4caf50; }
+        .container { padding: 15px; }
+        .section { background-color: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #333; }
+        .label { font-size: 14px; margin-bottom: 10px; display: block; }
+        input { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #444; background-color: #2a2a2a; color: #fff; box-sizing: border-box; }
+        button { background-color: #ff0000; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; }
+        .video-box { background-color: #000; width: 100%; padding-bottom: 56.25%; position: relative; margin-bottom: 10px; }
+        #main-player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .playlist-item { background-color: #252525; padding: 10px; margin-bottom: 8px; border-radius: 4px; cursor: pointer; display: flex; justify-content: space-between; }
+        .status { margin-top: 10px; font-weight: bold; }
+        .success { color: #4caf50; display: none; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <div class="app-title">YOU MONEY</div>
-        <div class="wallet-small">₹ <span id="money-display">0.00</span></div>
+    <div class="header">
+        <div class="title">YOU MONEY</div>
+        <div class="wallet">₹ <span id="balance">0.00</span></div>
     </div>
 
     <div class="container">
-        
-        <!-- नया सर्च बॉक्स फीचर -->
-        <div class="search-box-container">
-            <p class="search-title">🔍 यूट्यूब वीडियो लिंक सर्च करें</p>
-            <div class="search-row">
-                <input type="text" id="youtube-url" class="search-input" placeholder="यहाँ वीडियो लिंक पेस्ट करें...">
-                <button class="search-btn" onclick="loadSearchedVideo()">सर्च करें</button>
-            </div>
+        <div class="section">
+            <span class="label">वीडियो सर्च करें या लिंक पेस्ट करें:</span>
+            <input type="text" id="url-input" placeholder="यूट्यूब लिंक यहाँ पेस्ट करें...">
+            <button onclick="searchVideo()">सर्च करें</button>
         </div>
 
-        <!-- वीडियो प्लेयर कार्ड -->
-        <div class="video-card">
-            <p class="video-title" id="display-title">वीडियो: टास्क पूरा करें (₹0.01 कमाएं)</p>
-            <div class="video-wrapper">
-                <div id="main-player"></div>
-            </div>
-            <div id="main-status" class="status-text">स्थिति: वीडियो लिंक सर्च करके प्ले करें...</div>
-            <div id="main-success" class="success-text">✅ ₹0.01 आपके वॉलेट में जोड़ दिए गए हैं!</div>
+        <div class="section">
+            <div class="video-box"><div id="main-player"></div></div>
+            <div id="status" class="status">वीडियो पूरा देखें...</div>
+            <div id="success" class="success">सफलता: ₹0.01 वॉलेट में जोड़ दिए गए!</div>
         </div>
 
+        <div class="section">
+            <div class="label">क्रिएटर वीडियो अपलोड करें:</div>
+            <input type="text" id="c-title" placeholder="वीडियो टाइटल">
+            <input type="text" id="c-url" placeholder="यूट्यूब लिंक">
+            <button onclick="addCreatorVideo()">लिस्ट में जोड़ें</button>
+        </div>
+
+        <div class="label">वीडियो लिस्ट:</div>
+        <div id="playlist"></div>
     </div>
 
     <script>
-        let currentBalance = 0.00;
-        let currentVideoId = 'tgbNymZ7vqY'; // शुरुआती डिफ़ॉल्ट वीडियो
-        let isRewarded = false;
+        let balance = 0.00;
         let player;
+        let watched = {};
 
-        // यूट्यूब API लोड करना
-        let tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        let firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        const defaultVids = [
+            { id: 'tgbNymZ7vqY', title: 'मजेदार कार्टून वीडियो' },
+            { id: 'dQw4w9WgXcQ', title: 'म्यूजिक वीडियो' },
+            { id: '9bZkp7q19f0', title: 'अनोखे फैक्ट्स' },
+            { id: 'NJuSStkIZBg', title: 'लाइफ हैक्स' }
+        ];
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('main-player', {
-                videoId: currentVideoId,
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
+            player = new YT.Player('main-player', { videoId: defaultVids[0].id, events: { 'onStateChange': onStateChange } });
+            renderList();
+        }
+
+        function renderList() {
+            const list = document.getElementById('playlist');
+            list.innerHTML = '';
+            defaultVids.forEach(v => {
+                let div = document.createElement('div');
+                div.className = 'playlist-item';
+                div.innerHTML = `<span>${v.title}</span> <span>+ ₹0.01</span>`;
+                div.onclick = () => loadVideo(v.id, v.title);
+                list.appendChild(div);
             });
         }
 
-        // लिंक में से Video ID निकालने का फंक्शन
-        function extractVideoId(url) {
-            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            let match = url.match(regExp);
-            return (match && match[2].length == 11) ? match[2] : null;
+        function loadVideo(id, title) {
+            player.loadVideoById(id);
+            document.getElementById('status').style.display = 'block';
+            document.getElementById('success').style.display = 'none';
         }
 
-        // नया वीडियो लोड करने का फंक्शन
-        function loadSearchedVideo() {
-            let urlInput = document.getElementById('youtube-url').value;
-            let vId = extractVideoId(urlInput);
+        function searchVideo() {
+            let url = document.getElementById('url-input').value;
+            let id = url.split('v=')[1] || url.split('/').pop();
+            if(id) loadVideo(id, "सर्च किया गया वीडियो");
+        }
 
-            if (vId) {
-                currentVideoId = vId;
-                isRewarded = false; // नए वीडियो के लिए रिवॉर्ड रीसेट करें
-                document.getElementById('main-success').style.display = 'none';
-                document.getElementById('main-status').style.display = 'block';
-                document.getElementById('main-status').innerText = "स्थिति: नया वीडियो लोड हो गया। पूरा देखें...";
-                document.getElementById('main-status').style.color = "#ff9800";
-                
-                // प्लेयर में नया वीडियो डालें
-                player.loadVideoById(currentVideoId);
-            } else {
-                alert("कृपया सही यूट्यूब वीडियो लिंक पेस्ट करें!");
+        function addCreatorVideo() {
+            let t = document.getElementById('c-title').value;
+            let u = document.getElementById('c-url').value;
+            let id = u.split('v=')[1] || u.split('/').pop();
+            if(t && id) {
+                defaultVids.unshift({id: id, title: t});
+                renderList();
             }
         }
 
-        // ट्रैकर चेकिंग सिस्टम
-        function onPlayerStateChange(event) {
-            let statusElement = document.getElementById('main-status');
-            
-            if (event.data == YT.PlayerState.PLAYING) {
-                statusElement.innerText = "status: वीडियो चल रहा है... (पूरा देखना ज़रूरी है)";
-                statusElement.style.color = "#4caf50";
-            } 
-            else if (event.data == YT.PlayerState.PAUSED) {
-                statusElement.innerText = "status: वीडियो रुका हुआ है! देखने पर ही पैसा मिलेगा।";
-                statusElement.style.color = "#ff9800";
-            } 
-            else if (event.data == YT.PlayerState.ENDED) {
-                statusElement.style.display = 'none';
-                
-                if (!isRewarded) {
-                    isRewarded = true;
-                    currentBalance += 0.01;
-                    document.getElementById('money-display').innerText = currentBalance.toFixed(2);
-                    document.getElementById('main-success').style.display = 'block';
+        function onStateChange(e) {
+            if (e.data == 0) {
+                let id = player.getVideoData().video_id;
+                if (!watched[id]) {
+                    watched[id] = true;
+                    balance += 0.01;
+                    document.getElementById('balance').innerText = balance.toFixed(2);
+                    document.getElementById('success').style.display = 'block';
+                    document.getElementById('status').style.display = 'none';
                 }
             }
         }
+
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
     </script>
 </body>
 </html>
