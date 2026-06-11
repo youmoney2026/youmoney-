@@ -11,7 +11,7 @@
             color: #e0e0e0;
             margin: 0;
             padding: 0;
-            padding-bottom: 75px;
+            padding-bottom: 110px; /* नीचे फुटर और नेविगेशन के लिए पर्याप्त जगह */
         }
         .header-container {
             background-color: #ff0000;
@@ -42,6 +42,32 @@
         .container {
             padding: 12px;
         }
+        
+        /* पेज के निर्देश (Instructions) की स्टाइल */
+        .page-instruction {
+            background-color: #1a237e;
+            border-left: 4px solid #29b6f6;
+            padding: 10px;
+            font-size: 12px;
+            color: #e0f7fa;
+            margin-bottom: 15px;
+            border-radius: 0 4px 4px 0;
+            line-height: 1.4;
+        }
+
+        .ad-slot {
+            background-color: #1c1c1c;
+            border: 1px dashed #444;
+            color: #888;
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .box-container {
             background-color: #1e1e1e;
             padding: 15px;
@@ -92,6 +118,7 @@
             color: #ffffff;
             font-weight: bold;
         }
+        
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -101,13 +128,15 @@
             border-radius: 4px;
             overflow: hidden;
         }
-        .video-wrapper div {
+        .video-wrapper iframe, .video-wrapper div {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100% !important;
+            height: 100% !important;
+            border: none;
         }
+
         .status-text {
             font-size: 12px;
             color: #ff9800;
@@ -194,6 +223,7 @@
         }
         .dash-num.green {
             color: #4caf50;
+            font-weight: bold;
         }
         .qr-placeholder {
             width: 180px;
@@ -207,6 +237,25 @@
             font-weight: bold;
             font-size: 12px;
             border-radius: 4px;
+        }
+
+        /* नीचे का फिक्स्ड क्रिएटर फुटर क्रेडिट */
+        .app-footer-credit {
+            position: fixed;
+            bottom: 43px; /* नेविगेशन बार के ठीक ऊपर रहेगा */
+            left: 0;
+            width: 100%;
+            background-color: #111;
+            color: #888;
+            text-align: center;
+            font-size: 11px;
+            padding: 6px 0;
+            border-top: 1px solid #222;
+            letter-spacing: 0.5px;
+            z-index: 99;
+        }
+        .app-footer-credit strong {
+            color: #aaa;
         }
 
         /* नीचे का नेविगेशन बार */
@@ -252,8 +301,15 @@
 
     <div class="container">
         
-        <!-- PAGE 1: होम पेज (वीडियो प्लेयर और लिस्ट) -->
+        <!-- PAGE 1: होम पेज -->
         <div id="page-home" class="app-page active">
+            <!-- निर्देश -->
+            <div class="page-instruction">
+                <strong>💡 यहाँ क्या करना है:</strong> नीचे दी गई वीडियो लिस्ट में से कोई भी वीडियो चुनें या ऊपर अपनी पसंद का यूट्यूब लिंक सर्च करें। वीडियो को पूरा अंत तक देखें, जैसे ही वीडियो खत्म होगा आपके वॉलेट में पैसे जोड़ दिए जाएंगे!
+            </div>
+            
+            <div class="ad-slot" id="ad-top">SPONSORED ADVERTISEMENT SLOT</div>
+
             <div class="box-container">
                 <p class="box-title">यूट्यूब वीडियो लिंक सर्च करें</p>
                 <input type="text" id="search-url" class="input-field" placeholder="यहाँ वीडियो लिंक पेस्ट करें...">
@@ -269,14 +325,23 @@
                 <div id="main-success" class="success-text">सफलता: ₹0.01 आपके वॉलेट में जोड़ दिए गए हैं!</div>
             </div>
 
+            <div class="ad-slot" id="ad-middle">BANNER AD - WATCH AND EARN MORE</div>
+
             <div class="box-container">
                 <p class="box-title">वीडियो लिस्ट</p>
                 <div id="dynamic-playlist"></div>
             </div>
+
+            <div class="ad-slot" id="ad-bottom">SPONSORED LINKS & ADS</div>
         </div>
 
-        <!-- PAGE 2: क्रिएटर ज़ोन (वीडियो अपलोड फॉर्म) -->
+        <!-- PAGE 2: क्रिएटर ज़ोन -->
         <div id="page-creator" class="app-page">
+            <!-- निर्देश -->
+            <div class="page-instruction">
+                <strong>💡 यहाँ क्या करना है:</strong> यदि आप एक यूट्यूबर या क्रिएटर हैं, तो अपने वीडियो का टाइटल और लिंक डालकर उसे प्रमोट कर सकते हैं। आपका वीडियो तुरंत होम पेज की वीडियो लिस्ट में सबसे ऊपर लाइव जुड़ जाएगा।
+            </div>
+
             <div class="box-container">
                 <p class="box-title">नया वीडियो प्रमोट करें</p>
                 <label class="video-title" style="display:block; margin-bottom:5px;">वीडियो का टाइटल</label>
@@ -294,8 +359,13 @@
             </div>
         </div>
 
-        <!-- PAGE 3: क्रिएटर डैशबोर्ड (व्यूज और कमाई) -->
+        <!-- PAGE 3: क्रिएटर डैशबोर्ड -->
         <div id="page-dashboard" class="app-page">
+            <!-- निर्देश -->
+            <div class="page-instruction">
+                <strong>💡 यहाँ क्या करना है:</strong> यह आपका पर्सनल ट्रैकिंग बोर्ड है। आपके द्वारा 'क्रिएटर ज़ोन' से अपलोड किए गए सभी वीडियो पर टोटल कितने व्यूज आए हैं और उससे आपकी खुद की कितनी एक्स्ट्रा कमाई हुई है, वह आप यहाँ लाइव देख सकते हैं।
+            </div>
+
             <div class="box-container">
                 <p class="box-title">क्रिएटर डैशबोर्ड</p>
                 <p class="video-title" style="color: #aaa;">आपके द्वारा अपलोड किए गए वीडियो की लाइव प्रोग्रेस रिपोर्ट:</p>
@@ -313,8 +383,13 @@
             </div>
         </div>
 
-        <!-- PAGE 4: वॉलेट और रिडीम पेज (QR कोड) -->
+        <!-- PAGE 4: वॉलेट और रिडीम पेज -->
         <div id="page-wallet" class="app-page">
+            <!-- निर्देश -->
+            <div class="page-instruction">
+                <strong>💡 यहाँ क्या करना है:</strong> यहाँ आप अपनी कुल कमाई देख सकते हैं। जब आपका बैलेंस न्यूनतम ₹50.00 तक पहुँच जाए, तो नीचे अपना UPI ID डालें और पेमेंट रिक्वेस्ट सबमिट करें। वेरिफिकेशन के बाद पैसे आपके खाते में भेज दिए जाएंगे।
+            </div>
+
             <div class="box-container" style="text-align: center;">
                 <p class="box-title" style="text-align: left;">पैसे निकालने का सिस्टम</p>
                 <p class="video-title" style="font-size: 16px; color: #4caf50; margin-top: 15px;">
@@ -335,6 +410,11 @@
 
     </div>
 
+    <!-- डेवलपर क्रेडिट फुटर (नेविगेशन के ठीक ऊपर दिखेगा) -->
+    <div class="app-footer-credit">
+        © 2026 YOU MONEY | Designed & Developed by <strong>Sunil Kumar</strong>
+    </div>
+
     <!-- नीचे का 4-पेज नेविगेशन बार -->
     <div class="bottom-nav">
         <button id="nav-home" class="nav-btn active" onclick="switchPage('home')">होम</button>
@@ -349,7 +429,6 @@
         let watchedVideos = {}; 
         let player;
 
-        // क्रिएटर डैशबोर्ड का डेटा ट्रैक करने के लिए
         let totalCreatorViews = 0;
         let totalCreatorEarnings = 0.00;
 
@@ -374,7 +453,6 @@
             document.getElementById('wallet-page-balance').innerText = currentBalance.toFixed(2);
         }
 
-        // 4 पेजों को आपस में बदलने का फंक्शन
         function switchPage(pageId) {
             document.querySelectorAll('.app-page').forEach(page => page.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -399,6 +477,12 @@
 
             player = new YT.Player('main-player', {
                 videoId: currentVideoId,
+                playerVars: {
+                    'autoplay': 0,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'ecver': 2
+                },
                 events: {
                     'onStateChange': onPlayerStateChange
                 }
@@ -511,15 +595,13 @@
                 if (!watchedVideos[currentVideoId]) {
                     watchedVideos[currentVideoId] = true;
                     
-                    // व्यूअर के वॉलेट में पैसा जोड़ना
                     currentBalance += 0.01;
                     localStorage.setItem('youmoney_balance', currentBalance);
                     updateBalanceDisplays();
                     
-                    // यदि वीडियो क्रिएटर का है, तो क्रिएटर डैशबोर्ड का डेटा बढ़ाना
                     if (isCurrentVideoFromCreator) {
                         totalCreatorViews += 1;
-                        totalCreatorEarnings += 0.02; // क्रिएटर को हर व्यू पर 2 पैसे
+                        totalCreatorEarnings += 0.02;
                         
                         document.getElementById('dash-views').innerText = totalCreatorViews;
                         document.getElementById('dash-earnings').innerText = "₹" + totalCreatorEarnings.toFixed(2);
