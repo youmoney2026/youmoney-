@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Money - Professional</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 120px;
+        }
+        .header-container {
+            background-color: #ff0000;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .app-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+        }
+        .wallet-small {
+            background-color: #1e1e1e;
+            color: #4caf50;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            border: 1px solid #4caf50;
+            margin-right: 10px;
+        }
+        .container {
+            padding: 12px;
+        }
+        
+        .page-instruction {
+            background-color: #1a237e;
+            border-left: 4px solid #29b6f6;
+            padding: 12px;
+            font-size: 12px;
+            color: #e0f7fa;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 0 4px 4px 0;
+            line-height: 1.4;
+        }
+
+        .ad-slot {
+            background-color: #1c1c1c;
+            border: 1px dashed #444;
+            color: #888;
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .box-container {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        .box-title {
+            font-size: 14px;
+            color: #fff;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #2a2a2a;
+            color: #fff;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+        .action-btn {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .whatsapp-btn {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .video-card {
+            background-color: #1e1e1e;
+            margin-bottom: 15px;
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px solid #333;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            background-color: #000;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            border: none;
+        }
+
+        .video-title {
+            font-size: 13px;
+            margin: 8px 4px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+        
+        .status-text {
+            font-size: 12px;
+            color: #ff9800;
+            margin: 5px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .success-text {
+            font-size: 13px;
+            color: #4caf50;
+            margin: 5px 0;
+            font-weight: bold;
+            display: none;
+            text-align: center;
+        }
+        
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            background-color: #252525;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .playlist-item:hover {
+            border-color: #ff0000;
+            background-color: #2a2a2a;
+        }
+        .playlist-thumb {
+            width: 65px;
+            height: 45px;
+            border-radius: 4px;
+            margin-right: 10px;
+            object-fit: cover;
+            border: 1px solid #444;
+        }
+        .playlist-text {
+            font-size: 12px;
+            color: #e0e0e0;
+            flex: 1;
+            line-height: 1.3;
+        }
+        .badge-uploaded {
+            font-size: 9px;
+            background-color: #ff0000;
+            color: white;
+            padding: 1px 3px;
+            border-radius: 3px;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        .playlist-reward {
+            font-size: 11px;
+            color: #4caf50;
+            font-weight: bold;
+            background-color: #121212;
+            padding: 2px 6px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        
+        .info-note {
+            background-color: #2a1f1f;
+            border-left: 4px solid #ff0000;
+            padding: 10px;
+            font-size: 12px;
+            color: #ccc;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .dash-card {
+            background-color: #252525;
+            padding: 12px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        .dash-num {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff0000;
+            margin-top: 5px;
+        }
+        .dash-num.green {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .qr-placeholder-box {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+            margin: 15px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border: 2px dashed #444;
+            border-radius: 8px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .qr-text-demo {
+            font-size: 11px;
+            color: #aaa;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .app-footer-credit {
+            position: fixed;
+            bottom: 43px;
+            left: 0;
+            width: 100%;
+            background-color: #111;
+            color: #888;
+            text-align: center;
+            font-size: 11px;
+            padding: 6px 0;
+            border-top: 1px solid #222;
+            letter-spacing: 0.5px;
+            z-index: 99;
+        }
+        .app-footer-credit strong {
+            color: #aaa;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid #333;
+            z-index: 100;
+        }
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: auto;
+            text-align: center;
+        }
+        .nav-btn.active {
+            color: #ff0000;
+        }
+        .app-page {
+            display: none;
+        }
+        .app-page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="app-title">YOU MONEY</div>
+        <div class="wallet-small">INR <span id="money-display">0.00</span></div>
+    </div>
+
+    <div class="container">
+        
+        <!-- PAGE 1: होम पेज -->
+        <div id="page-home" class="app-page active">
+            
+            <div class="video-card" id="top-player-anchor">
+                <p class="video-title" id="display-title">चल रहा है: लोड हो रहा है...</p>
+                <div class="video-wrapper">
+                    <div id="main-player"></div>
+                </div>
+                <div id="main-status" class="status-text">स्थिति: लोड हो रहा है...</div>
+                <div id="main-success" class="success-text">सफलता: ₹0.01 आपके वॉलेट में जोड़ दिए गए हैं!</div>
+            </div>
+
+            <div class="page-instruction">
+                <strong>निर्देश:</strong> नीचे दी गई वीडियो लिस्ट में से कोई भी वीडियो चुनें या नीचे अपनी पसंद का यूट्यूब लिंक सर्च करें। वीडियो को पूरा अंत तक देखें, जैसे ही वीडियो खत्म होगा आपके वॉलेट में पैसे जोड़ दिए जाएंगे!
+            </div>
+            
+            <div class="ad-slot" id="ad-top">SPONSORED ADVERTISEMENT SLOT</div>
+
+            <div class="box-container">
+                <p class="box-title">यूट्यूब वीडियो लिंक सर्च करें (लिस्ट में हमेशा के लिए सेव होगा)</p>
+                <input type="text" id="search-url" class="input-field" placeholder="यहाँ वीडियो लिंक पेस्ट करें...">
+                <button class="action-btn" onclick="searchVideoByUrl()">सर्च और सेव करें</button>
+            </div>
+
+            <div class="ad-slot" id="ad-middle">BANNER AD - WATCH AND EARN MORE</div>
+
+            <div class="box-container">
+                <p class="box-title">नीचे सारा वीडियो आइकॉन (थंबनेल) के साथ उपलब्ध है</p>
+                <div id="dynamic-playlist"></div>
+            </div>
+
+            <div class="ad-slot" id="ad-bottom">SPONSORED LINKS & ADS</div>
+        </div>
+
+        <!-- PAGE 2: क्रिएटर ज़ोन -->
+        <div id="page-creator" class="app-page">
+            <div class="page-instruction">
+                <strong>निर्देश:</strong> यदि आप एक यूट्यूबर या क्रिएटर हैं, तो अपने वीडियो का टाइटल और लिंक यहाँ डालें ताकि दूसरे यूज़र्स उसे देखकर व्यूज बढ़ा सकें।
+            </div>
+
+            <div class="box-container">
+                <p class="box-title">नया वीडियो प्रमोट करें</p>
+                
+                <p style="font-size:12px; color:#4caf50; font-weight:bold; margin-bottom:15px; background-color:#121212; padding:8px; border-radius:4px; border:1px dashed #4caf50; text-align:center;">
+                    जो क्रिएटर वीडियो डालेगा, उसे भी प्रत्येक व्यू पर ₹0.01 की कमाई मिलेगी!
+                </p>
+
+                <label class="video-title" style="display:block; margin-bottom:5px;">वीडियो का टाइटल</label>
+                <input type="text" id="upload-title" class="input-field" placeholder="वीडियो का नाम लिखें...">
+                
+                <label class="video-title" style="display:block; margin-bottom:5px; margin-top:10px;">वीडियो लिंक (यूट्यूब)</label>
+                <input type="text" id="upload-url" class="input-field" placeholder="लिंक यहाँ पेस्ट करें...">
+                
+                <button class="action-btn" style="margin-top:15px;" onclick="uploadVideoByCreator()">वीडियो लिस्ट में जोड़ें</button>
+                
+                <div class="info-note">
+                    <strong>महत्वपूर्ण सूचना:</strong><br>
+                    कृपया सिर्फ वैध यूट्यूब वीडियो लिंक्स का ही उपयोग करें ताकि प्लेयर उसे सही से चला सके।
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 3: क्रिएटर डैशबोर्ड -->
+        <div id="page-dashboard" class="app-page">
+            <div class="page-instruction">
+                <strong>निर्देश:</strong> यह आपका पर्सनल ट्रैकिंग बोर्ड है। आपके अपलोड किए गए वीडियो के व्यूज यहाँ दिखाई देंगे।
+            </div>
+
+            <div class="box-container">
+                <p class="box-title">क्रिएटर डैशबोर्ड</p>
+                <p class="video-title" style="color: #aaa;">आपके वीडियो की लाइव प्रोग्रेस रिपोर्ट:</p>
+                
+                <div class="dashboard-grid">
+                    <div class="dash-card">
+                        <div class="video-title" style="text-align:center; margin:0;">कुल वीडियो व्यूज</div>
+                        <div class="dash-num" id="dash-views">0</div>
+                    </div>
+                    <div class="dash-card">
+                        <div class="video-title" style="text-align:center; margin:0;">क्रिएटर कमाई</div>
+                        <div class="dash-num green" id="dash-earnings">₹0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 4: वॉलेट और रिडीम पेज -->
+        <div id="page-wallet" class="app-page">
+            <div class="page-instruction">
+                <strong>निर्देश:</strong> यहाँ आप अपनी कुल कमाई देख सकते हैं। जब आपका बैलेंस न्यूनतम ₹10.00 तक पहुँच जाए, तो नीचे अपना UPI ID डालें और पेमेंट रिक्वेस्ट सबमिट करें।
+            </div>
+
+            <div class="box-container" style="text-align: center;">
+                <p class="box-title" style="text-align: left;">पैसे निकालने का सिस्टम</p>
+                <p class="video-title" style="font-size: 16px; color: #4caf50; margin-top: 15px;">
+                    आपका कुल बैलेंस: ₹<span id="wallet-page-balance">0.00</span>
+                </p>
+                <p class="status-text" style="color: #aaa; font-weight: normal; margin-bottom: 20px;">
+                    जब आपके वॉलेट में ₹10 या उससे अधिक हो जाएं, तो रिक्वेस्ट सबमिट करके स्क्रीनशॉट व्हाट्सएप करें।
+                </p>
+                
+                <div class="qr-placeholder-box">
+                    <div class="qr-text-demo"><strong>[ यहाँ आपका UPI QR कोड रहेगा ]</strong><br><br>स्कैनर फोटो अपलोड करने के लिए कोड बदलें।</div>
+                </div>
+                
+                <input type="text" id="user-upi" class="input-field" placeholder="अपना UPI ID दर्ज करें (जैसे: name@apl)">
+                <button class="action-btn" onclick="requestWithdrawal()">पेमेंट रिक्वेस्ट दर्ज करें</button>
+                
+                <button class="whatsapp-btn" onclick="sendWhatsAppScreenshot()">
+                    व्हाट्सएप पर स्क्रीनशॉट भेजें
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="app-footer-credit">
+        © 2026 YOU MONEY | Designed & Developed by <strong>Sunil Kumar</strong>
+    </div>
+
+    <div class="bottom-nav">
+        <button id="nav-home" class="nav-btn active" onclick="switchPage('home')">होम</button>
+        <button id="nav-creator" class="nav-btn" onclick="switchPage('creator')">क्रिएटर ज़ोन</button>
+        <button id="nav-dashboard" class="nav-btn" onclick="switchPage('dashboard')">डैशबोर्ड</button>
+        <button id="nav-wallet" class="nav-btn" onclick="switchPage('wallet')">रिडीम वॉलेट</button>
+    </div>
+
+    <script>
+        let currentBalance = 0.00;
+        let currentVideoId = 'tgbNymZ7vqY'; 
+        let watchedVideos = {}; 
+        let player = null;
+
+        let totalCreatorViews = 0;
+        let totalCreatorEarnings = 0.00;
+
+        const defaultVideos = [
+            { id: 'tgbNymZ7vqY', title: 'मजेदार कार्टून शो वीडियो' },
+            { id: 'dQw4w9WgXcQ', title: 'पॉपुलर म्यूजिक और डांस वीडियो' },
+            { id: '9bZkp7q19f0', title: 'दुनिया के 5 सबसे गजब के फैक्ट्स' }
+        ];
+
+        let savedSearchedVideos = JSON.parse(localStorage.getItem('youmoney_searched_videos')) || [];
+        let creatorVideos = JSON.parse(localStorage.getItem('youmoney_creator_videos')) || [];
+
+        window.onload = function() {
+            loadSavedBalance();
+            renderPlaylist();
+            
+            if(savedSearchedVideos.length > 0) {
+                currentVideoId = savedSearchedVideos[0].id;
+                document.getElementById('display-title').innerText = "चल रहा है: " + savedSearchedVideos[0].title;
+            } else {
+                document.getElementById('display-title').innerText = "चल रहा है: " + defaultVideos[0].title;
+            }
+            document.getElementById('main-status').innerText = "स्थिति: वीडियो लोड हो रहा है...";
+        };
+
+        function loadSavedBalance() {
+            let savedBal = localStorage.getItem('youmoney_balance');
+            if (savedBal) {
+                currentBalance = parseFloat(savedBal);
+                updateBalanceDisplays();
+            }
+        }
+
+        function updateBalanceDisplays() {
+            document.getElementById('money-display').innerText = currentBalance.toFixed(2);
+            document.getElementById('wallet-page-balance').innerText = currentBalance.toFixed(2);
+        }
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.app-page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            let targetPage = document.getElementById('page-' + pageId);
+            let targetNav = document.getElementById('nav-' + pageId);
+            
+            if(targetPage && targetNav) {
+                targetPage.classList.add('active');
+                targetNav.classList.add('active');
+            }
+        }
+
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            try {
+                player = new YT.Player('main-player', {
+                    videoId: currentVideoId,
+                    playerVars: {
+                        'autoplay': 0,
+                        'rel': 0,
+                        'showinfo': 0,
+                        'ecver': 2
+                    },
+                    events: {
+                        'onStateChange': onPlayerStateChange,
+                        'onReady': onPlayerReady
+                    }
+                });
+            } catch(e) {
+                console.log("यूट्यूब प्लेयर लोड होने में समस्या:", e);
+            }
+        }
+
+        function onPlayerReady() {
+            document.getElementById('main-status').innerText = "स्थिति: वीडियो पूरा देखें...";
+        }
+
+        function renderPlaylist() {
+            const playlistDiv = document.getElementById('dynamic-playlist');
+            if(!playlistDiv) return;
+            playlistDiv.innerHTML = ''; 
+
+            savedSearchedVideos.forEach(vid => {
+                let item = document.createElement('div');
+                item.className = 'playlist-item';
+                item.onclick = function() { selectVideo(vid.id, vid.title, false); };
+                let thumbUrl = `https://img.youtube.com/vi/${vid.id}/mqdefault.jpg`;
+                item.innerHTML = `<img src="${thumbUrl}" class="playlist-thumb" alt="icon">
+                                  <span class="playlist-text"><span class="badge-uploaded" style="background-color:#4caf50;">SAVED</span>${vid.title}</span>
+                                  <span class="playlist-reward">₹0.01</span>`;
+                playlistDiv.appendChild(item);
+            });
+
+            creatorVideos.forEach(vid => {
+                let item = document.createElement('div');
+                item.className = 'playlist-item';
+                item.onclick = function() { selectVideo(vid.id, vid.title, true); };
+                let thumbUrl = `https://img.youtube.com/vi/${vid.id}/mqdefault.jpg`;
+                item.innerHTML = `<img src="${thumbUrl}" class="playlist-thumb" alt="icon">
+                                  <span class="playlist-text"><span class="badge-uploaded">CREATOR</span>${vid.title}</span>
+                                  <span class="playlist-reward">₹0.01</span>`;
+                playlistDiv.appendChild(item);
+            });
+
+            defaultVideos.forEach((vid, index) => {
+                let item = document.createElement('div');
+                item.className = 'playlist-item';
+                item.onclick = function() { selectVideo(vid.id, vid.title, false); };
+                let thumbUrl = `https://img.youtube.com/vi/${vid.id}/mqdefault.jpg`;
+                item.innerHTML = `<img src="${thumbUrl}" class="playlist-thumb" alt="icon">
+                                  <span class="playlist-text">वीडियो ${index + 1}: ${vid.title}</span>
+                                  <span class="playlist-reward">₹0.01</span>`;
+                playlistDiv.appendChild(item);
+            });
+        }
+
+        let isCurrentVideoFromCreator = false;
+
+        function selectVideo(videoId, videoTitle, fromCreator) {
+            currentVideoId = videoId;
+            isCurrentVideoFromCreator = fromCreator;
+            document.getElementById('display-title').innerText = "चल रहा है: " + videoTitle;
+            
+            if (watchedVideos[currentVideoId]) {
+                document.getElementById('main-success').style.display = 'block';
+                document.getElementById('main-status').style.display = 'none';
+            } else {
+                document.getElementById('main-success').style.display = 'none';
+                document.getElementById('main-status').style.display = 'block';
+                document.getElementById('main-status').innerText = "स्थिति: वीडियो पूरा देखें...";
+                document.getElementById('main-status').style.color = "#ff9800";
+            }
+            
+            if(player && typeof player.loadVideoById === 'function') {
+                player.loadVideoById(currentVideoId);
+            }
+
+            document.getElementById('top-player-anchor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function extractVideoId(url) {
+            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            let match = url.match(regExp);
+            return (match && match[2].length == 11) ? match[2] : null;
+        }
+
+        function searchVideoByUrl() {
+            let urlInput = document.getElementById('search-url').value.trim();
+            let vId = extractVideoId(urlInput);
+
+            if (vId) {
+                document.getElementById('search-url').value = '';
+                
+                let exists = savedSearchedVideos.some(vid => vid.id === vId);
+                if (!exists) {
+                    savedSearchedVideos.unshift({ id: vId, title: "सर्च किया गया वीडियो" });
+                    localStorage.setItem('youmoney_searched_videos', JSON.stringify(savedSearchedVideos));
+                    renderPlaylist();
+                }
+                
+                selectVideo(vId, "सर्च किया गया वीडियो", false);
+            } else {
+                alert("कृपया सही वीडियो लिंक पेस्ट करें!");
+            }
+        }
+
+        function uploadVideoByCreator() {
+            let titleInput = document.getElementById('upload-title').value.trim();
+            let urlInput = document.getElementById('upload-url').value.trim();
+            let vId = extractVideoId(urlInput);
+
+            if (!titleInput) {
+                alert("कृपया वीडियो का टाइटल लिखें!");
+                return;
+            }
+            if (!vId) {
+                alert("कृपया वैध वीडियो लिंक दर्ज करें!");
+                return;
+            }
+
+            creatorVideos.unshift({ id: vId, title: titleInput });
+            localStorage.setItem('youmoney_creator_videos', JSON.stringify(creatorVideos));
+            
+            document.getElementById('upload-title').value = '';
+            document.getElementById('upload-url').value = '';
+            
+            renderPlaylist();
+            alert("आपका वीडियो सफलतापूर्वक जुड़ गया है!");
+            
+            switchPage('home');
+            selectVideo(vId, titleInput, true);
+        }
+
+        function onPlayerStateChange(event) {
+            let statusElement = document.getElementById('main-status');
+            if(!statusElement) return;
+            
+            if (event.data == YT.PlayerState.PLAYING) {
+                statusElement.innerText = "स्थिति: वीडियो चल रहा है... (पूरा देखना ज़रूरी है)";
+                statusElement.style.color = "#4caf50";
+            } 
+            else if (event.data == YT.PlayerState.PAUSED) {
+                statusElement.innerText = "स्थिति: वीडियो रुका हुआ है! देखने पर ही पैसा मिलेगा।";
+                statusElement.style.color = "#ff9800";
+            } 
+            else if (event.data == YT.PlayerState.ENDED) {
+                statusElement.style.display = 'none';
+                
+                if (!watchedVideos[currentVideoId]) {
+                    watchedVideos[currentVideoId] = true;
+                    
+                    currentBalance += 0.01;
+                    localStorage.setItem('youmoney_balance', currentBalance);
+                    updateBalanceDisplays();
+                    
+                    if (isCurrentVideoFromCreator) {
+                        totalCreatorViews += 1;
+                        totalCreatorEarnings += 0.01; 
+                        
+                        document.getElementById('dash-views').innerText = totalCreatorViews;
+                        document.getElementById('dash-earnings').innerText = "₹" + totalCreatorEarnings.toFixed(2);
+                    }
+                    
+                    document.getElementById('main-success').style.display = 'block';
+                }
+            }
+        }
+
+        function requestWithdrawal() {
+            let upiInput = document.getElementById('user-upi').value.trim();
+            if (!upiInput) {
+                alert("कृपया रिक्वेस्ट भेजने के लिए अपना UPI ID दर्ज करें!");
+                return;
+            }
+            if (currentBalance < 10.00) {
+                alert("पैसे निकालने के लिए न्यूनतम ₹10.00 का होना आवश्यक है।");
+                return;
+            }
+            alert("आपकी रिक्वेस्ट दर्ज कर ली गई है। कृपया नीचे दिए गए बटन पर क्लिक करके व्हाट्सएप पर स्क्रीनशॉट भेजें।");
+        }
+
+        function sendWhatsAppScreenshot() {
+            let upiInput = document.getElementById('user-upi').value.trim();
+            let msg = `Hello Sunil Sir, मैंने You Money ऐप में अपनी पेमेंट रिक्वेस्ट सबमिट की है।\nमेरा UPI ID: ${upiInput || 'Not Entered'}\nमेरा बैलेंस: ₹${currentBalance.toFixed(2)}`;
+            let encodedMsg = encodeURIComponent(msg);
+            window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
